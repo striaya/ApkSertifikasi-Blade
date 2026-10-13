@@ -11,7 +11,7 @@
 </head>
 <body class="d-flex align-items-center justify-content-center min-vh-100">
     <div class="text-center px-3">
-        <div class="stat-icon mx-auto mb-3"><i class="bi bi-compass"></i></div>
+        {{-- <div class="stat-icon mx-auto mb-3"><i class="bi bi-compass"></i></div> --}}
         <h1 class="page-title">404</h1>
         <p class="text-muted mb-4">Halaman atau data yang kamu cari tidak ditemukan.</p>
         <a href="{{ url('/dashboard') }}" class="btn btn-primary">Kembali ke Dashboard</a>

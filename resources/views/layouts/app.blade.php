@@ -27,7 +27,7 @@
             <i class="bi bi-people"></i> Data Peserta
         </a>
         <a class="nav-link {{ request()->routeIs('skema.*') ? 'active' : '' }}" href="{{ route('skema.index') }}">
-            <i class="bi bi-award"></i> Data Skema
+            <i class="bi bi-book"></i> Data Skema
         </a>
     </nav>
 

@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('pesertas', function (Blueprint $table) {
             $table->id();
-            $table->string('no_peserta', 30)->unique();
-            $table->string('nama', 100);
-            $table->string('email', 100);
-            $table->string('no_telepon', 20)->nullable();
+            $table->string('no_peserta', 10)->unique();
+            $table->string('nama', 50);
+            $table->string('email', 50);
+            $table->string('no_telepon', 13)->nullable();
             $table->text('alamat')->nullable();
             $table->date('tanggal_lahir')->nullable();
             $table->foreignId('skema_id')

@@ -23,7 +23,7 @@
 
     <div class="col-md-4">
         <div class="card-plain stat-card">
-            <span class="stat-icon"><i class="bi bi-award"></i></span>
+            <span class="stat-icon"><i class="bi bi-book"></i></span>
             <div>
                 <div class="stat-label">Total Skema</div>
                 <div class="stat-number">{{ $totalSkema }}</div>
@@ -31,7 +31,7 @@
         </div>
     </div>
 
-    <div class="col-md-4">
+    {{-- <div class="col-md-4">
         <div class="card-plain p-3 h-100 d-flex flex-column justify-content-center gap-2">
             <a href="{{ route('peserta.create') }}" class="btn btn-primary">
                 <i class="bi bi-person-plus me-1"></i> Tambah Peserta
@@ -41,7 +41,7 @@
             </a>
         </div>
     </div>
-</div>
+</div> --}}
 
 <div class="card-plain">
     <div class="card-head d-flex justify-content-between align-items-center">

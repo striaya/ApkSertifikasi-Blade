@@ -11,6 +11,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --line: #dee2e6;
+            --muted: #6c757d;
+            --ink: #212529;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f9fa;
+        }
+
         .login-card {
             width: 100%;
             max-width: 400px;
@@ -19,13 +30,6 @@
             border: 1px solid var(--line);
             border-radius: 18px;
             box-shadow: 0 10px 30px rgba(16, 24, 40, .06);
-        }
-
-        .login-card .brand-mark {
-            width: 48px;
-            height: 48px;
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
         }
 
         .login-title {
@@ -38,7 +42,7 @@
             position: relative;
         }
 
-        .field>i.icon {
+        .field > i.icon {
             position: absolute;
             left: .95rem;
             top: 50%;
@@ -70,6 +74,21 @@
         .field.has-toggle .form-control {
             padding-right: 2.8rem;
         }
+
+        .form-control:focus {
+            border-color: #86b7fe;
+            box-shadow: 0 0 0 .2rem rgba(13, 110, 253, .15);
+        }
+
+        .register-link {
+            color: #0d6efd;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .register-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -77,22 +96,41 @@
 
     <main class="login-card">
         <div class="text-center mb-4">
-            {{-- <span class="brand-mark"><i class="bi bi-patch-check-fill"></i></span> --}}
             <h1 class="login-title">Masuk</h1>
-            {{-- <p class="text-muted mb-0">Aplikasi Pengelolaan Data Peserta Sertifikasi</p> --}}
         </div>
 
-        <form method="POST" action="{{ route('login.process') }}" novalidate>
+        @if (session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('login.process') }}" autocomplete="off">
             @csrf
 
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
+
                 <div class="field">
                     <i class="bi bi-person icon"></i>
-                    <input type="text" id="username" name="username" value="{{ old('username') }}"
-                        class="form-control @error('username') is-invalid @enderror" placeholder="Masukkan username"
-                        autocomplete="username" autofocus>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        class="form-control @error('username') is-invalid @enderror"
+                        placeholder="Masukkan username"
+                        autocomplete="off"
+                        autocapitalize="none"
+                        spellcheck="false"
+                        required>
                 </div>
+
                 @error('username')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                 @enderror
@@ -100,21 +138,43 @@
 
             <div class="mb-4">
                 <label for="password" class="form-label">Password</label>
+
                 <div class="field has-toggle">
                     <i class="bi bi-lock icon"></i>
-                    <input type="password" id="password" name="password"
-                        class="form-control @error('password') is-invalid @enderror" placeholder="Masukkan password"
-                        autocomplete="current-password">
-                    <button type="button" class="toggle" id="togglePassword" aria-label="Tampilkan password">
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        class="form-control @error('password') is-invalid @enderror"
+                        placeholder="Masukkan password"
+                        autocomplete="new-password"
+                        required>
+
+                    <button
+                        type="button"
+                        class="toggle"
+                        id="togglePassword"
+                        aria-label="Tampilkan password">
                         <i class="bi bi-eye" id="toggleIcon"></i>
                     </button>
                 </div>
+
                 @error('password')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                 @enderror
             </div>
 
-            <button type="submit" class="btn btn-primary w-100 py-2">Masuk</button>
+            <button type="submit" class="btn btn-primary w-100 py-2">
+                {{-- <i class="bi bi-box-arrow-in-right me-1"></i> --}}
+                Masuk
+            </button>
+
+            <p class="text-center text-muted mt-4 mb-0">
+                Belum punya akun?
+                <a href="{{ route('register') }}" class="register-link">
+                    Daftar di sini
+                </a>
+            </p>
         </form>
     </main>
 
@@ -122,12 +182,18 @@
         const passwordInput = document.getElementById('password');
         const toggleIcon = document.getElementById('toggleIcon');
 
-        document.getElementById('togglePassword').addEventListener('click', function() {
+        document.getElementById('togglePassword').addEventListener('click', function () {
             const hidden = passwordInput.type === 'password';
+
             passwordInput.type = hidden ? 'text' : 'password';
             toggleIcon.className = hidden ? 'bi bi-eye-slash' : 'bi bi-eye';
+
+            this.setAttribute(
+                'aria-label',
+                hidden ? 'Sembunyikan password' : 'Tampilkan password'
+            );
         });
     </script>
-</body>
 
+</body>
 </html>
