@@ -1,11 +1,14 @@
 <?php
 
-use App\Http\Controllers\Web\{AuthController, DashboardController, SkemaController, PesertaController};
+use App\Http\Controllers\Web\AuthController;
+use App\Http\Controllers\Web\DashboardController;
+use App\Http\Controllers\Web\PesertaController;
+use App\Http\Controllers\Web\SkemaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('welcome');    
+})->name('welcome');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -17,8 +20,16 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('skema', SkemaController::class)->except('show');
-    Route::resource('peserta', PesertaController::class)
-        ->parameters(['peserta' => 'peserta']);
+    Route::middleware('role:admin')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])
+            ->name('dashboard');
+        Route::resource('skema', SkemaController::class)->except('show');
+        Route::resource('peserta', PesertaController::class)
+            ->parameters(['peserta' => 'peserta']);
+    });
+
+    Route::middleware('role:user')->group(function () {
+        Route::get('/user/dashboard', [UserDashboardController::class, 'index'])
+            ->name('user.dashboard');
+    });
 });

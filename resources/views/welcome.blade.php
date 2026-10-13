@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 
@@ -8,12 +7,9 @@
 
     <title>@yield('title', 'Beranda') · Data Peserta Sertifikasi</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         body {
@@ -98,20 +94,35 @@
 </head>
 
 <body>
+
     <nav class="navbar navbar-guest">
         <div class="container py-2">
-            <a href="{{ route('welcome') }}"
-                class="d-flex align-items-center gap-2 text-decoration-none text-dark">
-          
+            <a href="{{ route('welcome') }}" class="d-flex align-items-center gap-2 text-decoration-none text-dark">
                 <span class="fw-bold">Data Peserta Sertifikasi</span>
             </a>
 
-            <a href="{{ route('login') }}" class="btn btn-primary">
-                <i class="bi bi-box-arrow-in-right me-1"></i>
-                Login Admin
-            </a>
+            <div class="d-flex align-items-center gap-2">
+                @auth
+                    <span class="text-secondary small d-none d-md-inline">
+                        {{ auth()->user()->name }}
+                    </span>
+
+                    <form action="{{ route('logout') }}" method="POST" class="m-0">
+                        @csrf
+
+                        <button type="submit" class="btn btn-outline-danger">
+                            Logout
+                        </button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}" class="btn btn-primary">
+                        Login
+                    </a>
+                @endauth
+            </div>
         </div>
     </nav>
+
 
     <main class="container py-4 py-md-5">
         @yield('content')
