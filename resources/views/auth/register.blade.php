@@ -44,7 +44,6 @@
             font-size: .9rem;
         }
 
-        /* Layout form menjadi dua kolom */
         .register-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -57,7 +56,6 @@
             margin-bottom: 1rem !important;
         }
 
-        /* Field yang menggunakan lebar penuh */
         .register-grid .full-width {
             grid-column: 1 / -1;
         }
@@ -196,20 +194,18 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('register.process') }}">
+        <form method="POST" action="{{ route('register.process') }}" id="registerForm" novalidate>
             @csrf
 
             <div class="register-grid">
 
                 <div class="mb-3">
                     <label for="name" class="form-label">Nama Lengkap</label>
-
                     <div class="field">
                         <i class="bi bi-person icon"></i>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                             name="name" value="{{ old('name') }}" maxlength="50" autocomplete="name" required>
                     </div>
-
                     @error('name')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -217,14 +213,12 @@
 
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
-
                     <div class="field">
                         <i class="bi bi-person icon"></i>
                         <input type="text" class="form-control @error('username') is-invalid @enderror"
                             id="username" name="username" value="{{ old('username') }}" maxlength="50"
                             autocomplete="username" required>
                     </div>
-
                     @error('username')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -232,13 +226,11 @@
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-
                     <div class="field">
                         <i class="bi bi-envelope icon"></i>
                         <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
                             name="email" value="{{ old('email') }}" maxlength="50" autocomplete="email" required>
                     </div>
-
                     @error('email')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -246,18 +238,15 @@
 
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-
                     <div class="field has-toggle">
                         <i class="bi bi-lock icon"></i>
                         <input type="password" class="form-control @error('password') is-invalid @enderror"
                             id="password" name="password" placeholder="Minimal 8 karakter" minlength="8"
                             autocomplete="new-password" required>
-
                         <button type="button" class="toggle" id="togglePassword" aria-label="Tampilkan password">
                             <i class="bi bi-eye" id="passwordIcon"></i>
                         </button>
                     </div>
-
                     @error('password')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -265,14 +254,12 @@
 
                 <div class="mb-3">
                     <label for="nik" class="form-label">NIK</label>
-
                     <div class="field">
                         <i class="bi bi-card-text icon"></i>
                         <input type="text" class="form-control @error('nik') is-invalid @enderror" id="nik"
                             name="nik" placeholder="16 digit NIK" value="{{ old('nik') }}" inputmode="numeric"
                             maxlength="16" oninput="this.value = this.value.replace(/\D/g, '').slice(0, 16)" required>
                     </div>
-
                     @error('nik')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -280,7 +267,6 @@
 
                 <div class="mb-3">
                     <label for="no_telepon" class="form-label">Nomor Telepon</label>
-
                     <div class="field">
                         <i class="bi bi-telephone icon"></i>
                         <input type="tel" class="form-control @error('no_telepon') is-invalid @enderror"
@@ -288,7 +274,6 @@
                             maxlength="13" oninput="this.value = this.value.replace(/\D/g, '').slice(0, 13)"
                             autocomplete="tel" required>
                     </div>
-
                     @error('no_telepon')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -296,14 +281,12 @@
 
                 <div class="mb-3">
                     <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
-
                     <div class="field">
                         <i class="bi bi-geo-alt icon"></i>
                         <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror"
                             id="tempat_lahir" name="tempat_lahir" placeholder="Kota tempat lahir"
                             value="{{ old('tempat_lahir') }}" maxlength="100" required>
                     </div>
-
                     @error('tempat_lahir')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -311,14 +294,12 @@
 
                 <div class="mb-3">
                     <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
-
                     <div class="field">
                         <i class="bi bi-calendar icon"></i>
                         <input type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror"
                             id="tanggal_lahir" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}"
                             max="{{ date('Y-m-d') }}" required>
                     </div>
-
                     @error('tanggal_lahir')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -326,12 +307,10 @@
 
                 <div class="mb-3">
                     <label for="skema_id" class="form-label">Skema Sertifikasi</label>
-
                     <div class="field">
                         <select class="form-select @error('skema_id') is-invalid @enderror" id="skema_id"
                             name="skema_id" required>
                             <option value="">Pilih skema sertifikasi</option>
-
                             @foreach ($skemas as $skema)
                                 <option value="{{ $skema->id }}"
                                     {{ old('skema_id') == $skema->id ? 'selected' : '' }}>
@@ -340,7 +319,6 @@
                             @endforeach
                         </select>
                     </div>
-
                     @error('skema_id')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -348,12 +326,10 @@
 
                 <div class="mb-3 full-width">
                     <label for="alamat" class="form-label">Alamat Lengkap</label>
-
                     <div class="field">
                         <textarea class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" rows="3"
                             maxlength="2000" placeholder="Masukkan alamat" autocomplete="street-address" required>{{ old('alamat') }}</textarea>
                     </div>
-
                     @error('alamat')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -389,6 +365,95 @@
                 'aria-label',
                 isPassword ? 'Sembunyikan password' : 'Tampilkan password'
             );
+        });
+    </script>
+
+    <!-- Tambahan validasi: menandai semua kolom wajib saat tombol daftar diklik -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('registerForm');
+
+            if (!form) return;
+
+            const fields = form.querySelectorAll(
+                'input[required], select[required], textarea[required]'
+            );
+
+            function validateField(field) {
+                const value = field.value.trim();
+                const container = field.closest('.mb-3');
+                let feedback = container.querySelector('.custom-validation');
+
+                field.classList.remove('is-invalid');
+
+                if (value === '' || !field.checkValidity()) {
+                    field.classList.add('is-invalid');
+
+                    if (!feedback) {
+                        feedback = document.createElement('div');
+                        feedback.className = 'invalid-feedback custom-validation';
+                        field.closest('.field').insertAdjacentElement('afterend', feedback);
+                    }
+
+                    if (value === '') {
+                        feedback.textContent = 'Kolom ini wajib diisi.';
+                    } else if (field.validity.typeMismatch) {
+                        feedback.textContent = 'Masukkan format yang valid.';
+                    } else if (field.validity.tooShort) {
+                        feedback.textContent = 'Isian terlalu pendek.';
+                    } else if (field.id === 'nik' && value.length !== 16) {
+                        feedback.textContent = 'NIK harus terdiri dari 16 digit.';
+                    } else {
+                        feedback.textContent = 'Periksa kembali isian ini.';
+                    }
+
+                    return false;
+                }
+
+                if (feedback) {
+                    feedback.remove();
+                }
+
+                return true;
+            }
+
+            form.addEventListener('submit', function (event) {
+                let formValid = true;
+
+                fields.forEach(function (field) {
+                    if (!validateField(field)) {
+                        formValid = false;
+                    }
+                });
+
+                if (!formValid) {
+                    event.preventDefault();
+
+                    const firstInvalid = form.querySelector('.is-invalid');
+
+                    if (firstInvalid) {
+                        firstInvalid.focus();
+                        firstInvalid.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                    }
+                }
+            });
+
+            fields.forEach(function (field) {
+                field.addEventListener('input', function () {
+                    if (field.classList.contains('is-invalid')) {
+                        validateField(field);
+                    }
+                });
+
+                field.addEventListener('change', function () {
+                    if (field.classList.contains('is-invalid')) {
+                        validateField(field);
+                    }
+                });
+            });
         });
     </script>
 
