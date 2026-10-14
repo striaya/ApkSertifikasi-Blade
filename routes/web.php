@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\PesertaController;
 use App\Http\Controllers\Web\SkemaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\UserDashboardController;
+use App\Http\Controllers\Web\AkunController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,6 +31,8 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('peserta', PesertaController::class)
             ->parameters(['peserta' => 'peserta']);
+
+        Route::resource('akun', AkunController::class)->except('show');
     });
 
     Route::middleware('role:user')->group(function () {

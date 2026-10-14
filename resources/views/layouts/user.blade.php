@@ -22,9 +22,32 @@
             flex-direction: column;
         }
 
-        .navbar-guest {
-            background: #fff;
-            border-bottom: 1px solid #e5e7eb;
+        .navbar {
+            background: rgba(255, 255, 255, .96);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            letter-spacing: -.5px;
+        }
+
+        .navbar-brand span {
+            color: var(--primary);
+        }
+
+        .navbar .nav-link {
+            color: var(--text-muted);
+            font-size: .9rem;
+            font-weight: 500;
+            margin: 0 10px;
+        }
+
+        .navbar .nav-link:hover {
+            color: var(--primary);
         }
 
         .page-title {

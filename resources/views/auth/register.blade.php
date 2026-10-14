@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,7 +66,7 @@
             position: relative;
         }
 
-        .field > i.icon {
+        .field>i.icon {
             position: absolute;
             left: .95rem;
             top: 50%;
@@ -143,6 +144,15 @@
             display: block;
         }
 
+        #alamat {
+            padding: 10px 12px;
+            text-indent: 0;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
         @media (max-width: 576px) {
             .register-card {
                 padding: 1.5rem 1.25rem;
@@ -196,16 +206,8 @@
 
                     <div class="field">
                         <i class="bi bi-person icon"></i>
-                        <input
-                            type="text"
-                            class="form-control @error('name') is-invalid @enderror"
-                            id="name"
-                            name="name"
-                            value="{{ old('name') }}"
-                            maxlength="50"
-                            autocomplete="name"
-                            required
-                        >
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                            name="name" value="{{ old('name') }}" maxlength="50" autocomplete="name" required>
                     </div>
 
                     @error('name')
@@ -218,16 +220,9 @@
 
                     <div class="field">
                         <i class="bi bi-person icon"></i>
-                        <input
-                            type="text"
-                            class="form-control @error('username') is-invalid @enderror"
-                            id="username"
-                            name="username"
-                            value="{{ old('username') }}"
-                            maxlength="50"
-                            autocomplete="username"
-                            required
-                        >
+                        <input type="text" class="form-control @error('username') is-invalid @enderror"
+                            id="username" name="username" value="{{ old('username') }}" maxlength="50"
+                            autocomplete="username" required>
                     </div>
 
                     @error('username')
@@ -240,16 +235,8 @@
 
                     <div class="field">
                         <i class="bi bi-envelope icon"></i>
-                        <input
-                            type="email"
-                            class="form-control @error('email') is-invalid @enderror"
-                            id="email"
-                            name="email"
-                            value="{{ old('email') }}"
-                            maxlength="50"
-                            autocomplete="email"
-                            required
-                        >
+                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                            name="email" value="{{ old('email') }}" maxlength="50" autocomplete="email" required>
                     </div>
 
                     @error('email')
@@ -262,23 +249,11 @@
 
                     <div class="field has-toggle">
                         <i class="bi bi-lock icon"></i>
-                        <input
-                            type="password"
-                            class="form-control @error('password') is-invalid @enderror"
-                            id="password"
-                            name="password"
-                            placeholder="Minimal 8 karakter"
-                            minlength="8"
-                            autocomplete="new-password"
-                            required
-                        >
+                        <input type="password" class="form-control @error('password') is-invalid @enderror"
+                            id="password" name="password" placeholder="Minimal 8 karakter" minlength="8"
+                            autocomplete="new-password" required>
 
-                        <button
-                            type="button"
-                            class="toggle"
-                            id="togglePassword"
-                            aria-label="Tampilkan password"
-                        >
+                        <button type="button" class="toggle" id="togglePassword" aria-label="Tampilkan password">
                             <i class="bi bi-eye" id="passwordIcon"></i>
                         </button>
                     </div>
@@ -293,18 +268,9 @@
 
                     <div class="field">
                         <i class="bi bi-card-text icon"></i>
-                        <input
-                            type="text"
-                            class="form-control @error('nik') is-invalid @enderror"
-                            id="nik"
-                            name="nik"
-                            placeholder="16 digit NIK"
-                            value="{{ old('nik') }}"
-                            inputmode="numeric"
-                            maxlength="16"
-                            oninput="this.value = this.value.replace(/\D/g, '').slice(0, 16)"
-                            required
-                        >
+                        <input type="text" class="form-control @error('nik') is-invalid @enderror" id="nik"
+                            name="nik" placeholder="16 digit NIK" value="{{ old('nik') }}" inputmode="numeric"
+                            maxlength="16" oninput="this.value = this.value.replace(/\D/g, '').slice(0, 16)" required>
                     </div>
 
                     @error('nik')
@@ -317,18 +283,10 @@
 
                     <div class="field">
                         <i class="bi bi-telephone icon"></i>
-                        <input
-                            type="tel"
-                            class="form-control @error('no_telepon') is-invalid @enderror"
-                            id="no_telepon"
-                            name="no_telepon"
-                            value="{{ old('no_telepon') }}"
-                            inputmode="numeric"
-                            maxlength="13"
-                            oninput="this.value = this.value.replace(/\D/g, '').slice(0, 13)"
-                            autocomplete="tel"
-                            required
-                        >
+                        <input type="tel" class="form-control @error('no_telepon') is-invalid @enderror"
+                            id="no_telepon" name="no_telepon" value="{{ old('no_telepon') }}" inputmode="numeric"
+                            maxlength="13" oninput="this.value = this.value.replace(/\D/g, '').slice(0, 13)"
+                            autocomplete="tel" required>
                     </div>
 
                     @error('no_telepon')
@@ -341,16 +299,9 @@
 
                     <div class="field">
                         <i class="bi bi-geo-alt icon"></i>
-                        <input
-                            type="text"
-                            class="form-control @error('tempat_lahir') is-invalid @enderror"
-                            id="tempat_lahir"
-                            name="tempat_lahir"
-                            placeholder="Kota tempat lahir"
-                            value="{{ old('tempat_lahir') }}"
-                            maxlength="100"
-                            required
-                        >
+                        <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror"
+                            id="tempat_lahir" name="tempat_lahir" placeholder="Kota tempat lahir"
+                            value="{{ old('tempat_lahir') }}" maxlength="100" required>
                     </div>
 
                     @error('tempat_lahir')
@@ -363,15 +314,9 @@
 
                     <div class="field">
                         <i class="bi bi-calendar icon"></i>
-                        <input
-                            type="date"
-                            class="form-control @error('tanggal_lahir') is-invalid @enderror"
-                            id="tanggal_lahir"
-                            name="tanggal_lahir"
-                            value="{{ old('tanggal_lahir') }}"
-                            max="{{ date('Y-m-d') }}"
-                            required
-                        >
+                        <input type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror"
+                            id="tanggal_lahir" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}"
+                            max="{{ date('Y-m-d') }}" required>
                     </div>
 
                     @error('tanggal_lahir')
@@ -383,19 +328,13 @@
                     <label for="skema_id" class="form-label">Skema Sertifikasi</label>
 
                     <div class="field">
-                        <select
-                            class="form-select @error('skema_id') is-invalid @enderror"
-                            id="skema_id"
-                            name="skema_id"
-                            required
-                        >
+                        <select class="form-select @error('skema_id') is-invalid @enderror" id="skema_id"
+                            name="skema_id" required>
                             <option value="">Pilih skema sertifikasi</option>
 
                             @foreach ($skemas as $skema)
-                                <option
-                                    value="{{ $skema->id }}"
-                                    {{ old('skema_id') == $skema->id ? 'selected' : '' }}
-                                >
+                                <option value="{{ $skema->id }}"
+                                    {{ old('skema_id') == $skema->id ? 'selected' : '' }}>
                                     {{ $skema->nama_skema }}
                                 </option>
                             @endforeach
@@ -411,16 +350,8 @@
                     <label for="alamat" class="form-label">Alamat Lengkap</label>
 
                     <div class="field">
-                        <textarea
-                            class="form-control @error('alamat') is-invalid @enderror"
-                            id="alamat"
-                            name="alamat"
-                            rows="3"
-                            maxlength="2000"
-                            placeholder="Masukkan alamat lengkap"
-                            autocomplete="street-address"
-                            required
-                        >{{ old('alamat') }}</textarea>
+                        <textarea class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" rows="3"
+                            maxlength="2000" placeholder="Masukkan alamat" autocomplete="street-address" required>{{ old('alamat') }}</textarea>
                     </div>
 
                     @error('alamat')
@@ -430,7 +361,6 @@
 
             </div>
 
-            {{-- Tombol Daftar --}}
             <button type="submit" class="btn btn-primary btn-register w-100">
                 Daftar Sekarang
             </button>
@@ -448,7 +378,7 @@
         const passwordInput = document.getElementById('password');
         const passwordIcon = document.getElementById('passwordIcon');
 
-        togglePassword.addEventListener('click', function () {
+        togglePassword.addEventListener('click', function() {
             const isPassword = passwordInput.type === 'password';
 
             passwordInput.type = isPassword ? 'text' : 'password';
@@ -463,4 +393,5 @@
     </script>
 
 </body>
+
 </html>

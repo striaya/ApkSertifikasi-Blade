@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 
@@ -24,15 +23,22 @@
 
             <div class="nav-label">Menu</div>
             <nav class="nav flex-column gap-1">
-                <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
+                <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
+                    href="{{ route('dashboard') }}">
                     <i class="bi bi-grid-1x2"></i> Dashboard
                 </a>
                 <a class="nav-link {{ request()->routeIs('peserta.*') ? 'active' : '' }}"
                     href="{{ route('peserta.index') }}">
                     <i class="bi bi-people"></i> Data Peserta
                 </a>
-                <a class="nav-link {{ request()->routeIs('skema.*') ? 'active' : '' }}" href="{{ route('skema.index') }}">
+                <a class="nav-link {{ request()->routeIs('skema.*') ? 'active' : '' }}"
+                    href="{{ route('skema.index') }}">
                     <i class="bi bi-book"></i> Data Skema
+                </a>
+
+                <a href="{{ route('akun.index') }}" class="nav-link {{ request()->routeIs('akun.*') ? 'active' : '' }}">
+                    <i class="bi bi-person-gear"></i>
+                    <span>Manajemen Akun</span>
                 </a>
             </nav>
 
@@ -47,7 +53,7 @@
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit" class="btn btn-ghost btn-sm w-100">
-                        <i class="bi bi-box-arrow-right me-1"></i> Keluar
+                        Keluar
                     </button>
                 </form>
             </div>
