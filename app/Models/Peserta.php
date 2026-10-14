@@ -11,9 +11,11 @@ class Peserta extends Model
         'no_peserta',
         'nama',
         'email',
+        'nik',
         'no_telepon',
-        'alamat',
+        'tempat_lahir',
         'tanggal_lahir',
+        'alamat',
         'skema_id',
     ];
     protected $casts = [

@@ -5,6 +5,7 @@ use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\PesertaController;
 use App\Http\Controllers\Web\SkemaController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Web\UserDashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,10 +21,13 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
     Route::middleware('role:admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])
             ->name('dashboard');
+
         Route::resource('skema', SkemaController::class)->except('show');
+
         Route::resource('peserta', PesertaController::class)
             ->parameters(['peserta' => 'peserta']);
     });

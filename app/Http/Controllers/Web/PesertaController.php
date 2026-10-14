@@ -19,7 +19,9 @@ class PesertaController extends Controller
                 $query->where(function ($q) use ($search) {
                     $q->where('nama', 'like', "%{$search}%")
                         ->orWhere('no_peserta', 'like', "%{$search}%")
-                        ->orWhere('email', 'like', "%{$search}%");
+                        ->orWhere('email', 'like', "%{$search}%")
+                        ->orWhere('nik', 'like', "%{$search}%")
+                        ->orWhere('no_telepon', 'like', "%{$search}%");
                 });
             })
             ->latest()
@@ -47,13 +49,15 @@ class PesertaController extends Controller
     {
         try {
             $validated = $request->validate([
-                'no_peserta' => 'required|string|max:255|unique:pesertas,no_peserta',
-                'nama' => 'required|string|max:255',
-                'email' => 'required|email|max:255',
-                'no_telepon' => 'required|string|max:20',
-                'tanggal_lahir' => 'required|date',
+                'no_peserta' => 'required|string|max:10|unique:pesertas,no_peserta',
+                'nama' => 'required|string|max:50',
+                'email' => 'required|email|max:50',
+                'nik' => 'required|regex:/^[0-9]{16}$/|unique:pesertas,nik',
+                'no_telepon' => 'required|regex:/^[0-9]{10,13}$/',
+                'tempat_lahir' => 'required|string|max:100',
+                'tanggal_lahir' => 'required|date|before_or_equal:today',
                 'skema_id' => 'required|exists:skemas,id',
-                'alamat' => 'required|string',
+                'alamat' => 'required|string|max:2000',
             ]);
 
             Peserta::create($validated);
@@ -96,13 +100,15 @@ class PesertaController extends Controller
     public function update(Request $request, Peserta $peserta)
     {
         $data = $request->validate([
-            'no_peserta' => 'required|string|max:255|unique:pesertas,no_peserta,'.$peserta->id,
-            'nama' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'no_telepon' => 'required|string|max:20',
-            'tanggal_lahir' => 'required|date',
+            'no_peserta' => 'required|string|max:10|unique:pesertas,no_peserta,'.$peserta->id,
+            'nama' => 'required|string|max:50',
+            'email' => 'required|email|max:50',
+            'nik' => 'required|regex:/^[0-9]{16}$/|unique:pesertas,nik,'.$peserta->id,
+            'no_telepon' => 'required|regex:/^[0-9]{10,13}$/',
+            'tempat_lahir' => 'required|string|max:100',
+            'tanggal_lahir' => 'required|date|before_or_equal:today',
             'skema_id' => 'required|exists:skemas,id',
-            'alamat' => 'required|string',
+            'alamat' => 'required|string|max:2000',
         ]);
 
         $peserta->update($data);

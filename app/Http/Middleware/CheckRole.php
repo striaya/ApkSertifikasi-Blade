@@ -13,11 +13,15 @@ class CheckRole
      *
      * @param  Closure(Request): (Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
-    {
-        if(!$request->user() || $request->user()->role !== $role) {
+    public function handle(
+        Request $request,
+        Closure $next,
+        string $role
+    ): Response {
+        if (! $request->user() || $request->user()->role !== $role) {
             abort(403, 'Kamu tidak memiliki akses ke halaman ini');
         }
+
         return $next($request);
     }
 }
