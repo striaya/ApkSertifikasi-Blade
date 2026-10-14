@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 
@@ -104,7 +103,7 @@
     <nav class="navbar navbar-guest">
         <div class="container py-2">
 
-            <a href="{{ route('user.dashboard') }}"
+            <a href="{{ auth()->check() && auth()->user()->role === 'admin' ? route('dashboard') : (auth()->check() ? route('user.dashboard') : route('welcome')) }}"
                 class="d-flex align-items-center gap-2 text-decoration-none text-dark">
                 <span class="fw-bold">Data Peserta Sertifikasi</span>
             </a>
@@ -137,16 +136,14 @@
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('success') }}
-                <button type="button" class="btn-close"
-                    data-bs-dismiss="alert" aria-label="Tutup"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
             </div>
         @endif
 
         @if (session('error'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{ session('error') }}
-                <button type="button" class="btn-close"
-                    data-bs-dismiss="alert" aria-label="Tutup"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
             </div>
         @endif
 
@@ -157,4 +154,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

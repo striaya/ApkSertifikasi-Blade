@@ -367,7 +367,7 @@
 
             <p class="text-center mt-4 mb-0 small">
                 Sudah punya akun?
-                <a href="{{ route('welcome') }}" class="login-link">Login di sini</a>
+                <a href="{{ route('welcome') }}#loginModal" class="login-link">Login di sini</a>
             </p>
 
         </form>

@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Models\Peserta;
 use App\Models\Skema;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -33,11 +33,12 @@ class AuthController extends Controller
         ]);
 
         if (! Auth::attempt($credentials)) {
-            return back()
+            return redirect()
+                ->route('welcome')
                 ->withErrors([
                     'username' => 'Username atau password salah.',
                 ])
-                ->onlyInput('username');
+                ->withInput($request->only('username'));
         }
 
         $request->session()->regenerate();
@@ -45,11 +46,15 @@ class AuthController extends Controller
         $user = Auth::user();
 
         if ($user->role === 'admin') {
-            return redirect()->route('dashboard');
+            return redirect()
+                ->route('dashboard')
+                ->with('login_success', 'Login berhasil! Selamat datang, Admin');
         }
 
         if ($user->role === 'user') {
-            return redirect()->route('user.dashboard');
+            return redirect()
+                ->route('user.dashboard')
+                ->with('login_success', 'Login berhasil! Selamat datang');
         }
 
         Auth::logout();
@@ -58,10 +63,8 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()
-            ->route('login')
-            ->withErrors([
-                'username' => 'Role akun tidak dikenali.',
-            ]);
+            ->route('welcome')
+            ->with('login_error', 'Role akun tidak dikenali.');
     }
 
     public function register(Request $request)
@@ -104,7 +107,7 @@ class AuthController extends Controller
         ]);
 
         DB::transaction(function () use ($validated) {
-            User::create([
+            $user = User::create([
                 'name' => $validated['name'],
                 'username' => $validated['username'],
                 'email' => $validated['email'],
@@ -117,6 +120,7 @@ class AuthController extends Controller
             } while (Peserta::where('no_peserta', $noPeserta)->exists());
 
             Peserta::create([
+                'user_id' => $user->id,
                 'no_peserta' => $noPeserta,
                 'nama' => $validated['name'],
                 'email' => $validated['email'],
@@ -126,11 +130,12 @@ class AuthController extends Controller
                 'tanggal_lahir' => $validated['tanggal_lahir'],
                 'alamat' => $validated['alamat'],
                 'skema_id' => $validated['skema_id'],
+                'status' => 'menunggu_verifikasi',
             ]);
         });
 
         return redirect()
-            ->route('login')
+            ->route('welcome')
             ->with('success', 'Pendaftaran berhasil. Silakan login.');
     }
 

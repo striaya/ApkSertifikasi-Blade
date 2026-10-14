@@ -3,6 +3,21 @@
 @section('title', 'Dashboard')
 
 @section('content')
+
+@if (session('login_success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        {{ session('login_success') }}
+
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Tutup"
+        ></button>
+    </div>
+@endif
+
 <div class="page-head">
     <div>
         <h1 class="page-title">Dashboard</h1>

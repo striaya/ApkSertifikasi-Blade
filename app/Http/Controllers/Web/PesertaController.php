@@ -127,4 +127,22 @@ class PesertaController extends Controller
 
         return redirect()->route('peserta.index')->with('success', 'Data peserta berhasil dihapus');
     }
+
+    public function updateStatus(Request $request, Peserta $peserta)
+    {
+        $validated = $request->validate([
+            'status' => [
+                'required',
+                'in:menunggu_verifikasi,terverifikasi,ditolak',
+            ],
+        ]);
+
+        $peserta->update([
+            'status' => $validated['status'],
+        ]);
+
+        return redirect()
+            ->route('peserta.show', $peserta)
+            ->with('success', 'Status pendaftaran berhasil diperbarui.');
+    }
 }

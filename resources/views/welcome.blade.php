@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -187,7 +188,8 @@
             background: #fff;
             transition: .2s ease;
         }
-    /* 
+
+        /*
             .feature-card:hover {
                 transform: translateY(-4px);
                 box-shadow: 0 12px 30px rgba(15, 23, 42, .06);
@@ -413,56 +415,53 @@
         }
     </style>
 </head>
+
 <body>
 
-<nav class="navbar navbar-guest">
-    <div class="container py-2">
+    <nav class="navbar navbar-guest">
+        <div class="container py-2">
 
-        <a href="{{ auth()->check() && auth()->user()->role === 'admin' ? route('dashboard') : (auth()->check() ? route('user.dashboard') : route('welcome')) }}"
-            class="d-flex align-items-center gap-2 text-decoration-none text-dark">
-            <span class="fw-bold">Data Peserta Sertifikasi</span>
-        </a>
+            <a href="{{ auth()->check() && auth()->user()->role === 'admin' ? route('dashboard') : (auth()->check() ? route('user.dashboard') : route('welcome')) }}"
+                class="d-flex align-items-center gap-2 text-decoration-none text-dark">
+                <span class="fw-bold">Data Peserta Sertifikasi</span>
+            </a>
 
-        <div class="d-flex align-items-center gap-2">
-            @auth
-                <span class="text-secondary small d-none d-md-inline">
-                    {{ auth()->user()->name }}
-                </span>
+            <div class="d-flex align-items-center gap-2">
+                @auth
+                    <span class="text-secondary small d-none d-md-inline">
+                        {{ auth()->user()->name }}
+                    </span>
 
-                @if (auth()->user()->role === 'admin')
-                    <a href="{{ route('dashboard') }}" class="btn btn-primary">
-                        Dashboard
-                    </a>
-                @elseif (auth()->user()->role === 'user')
-                    <a href="{{ route('user.dashboard') }}" class="btn btn-primary">
-                        Dashboard
-                    </a>
-                @endif
+                    @if (auth()->user()->role === 'admin')
+                        <a href="{{ route('dashboard') }}" class="btn btn-primary">
+                            Dashboard
+                        </a>
+                    @elseif (auth()->user()->role === 'user')
+                        <a href="{{ route('user.dashboard') }}" class="btn btn-primary">
+                            Dashboard
+                        </a>
+                    @endif
 
-                <form action="{{ route('logout') }}" method="POST" class="m-0">
-                    @csrf
+                    <form action="{{ route('logout') }}" method="POST" class="m-0">
+                        @csrf
 
-                    <button type="submit" class="btn btn-outline-danger">
-                        Logout
+                        <button type="submit" class="btn btn-outline-danger">
+                            Logout
+                        </button>
+                    </form>
+                @else
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        Login
                     </button>
-                </form>
-            @else
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#loginModal">
-                    Login
-                </button>
 
-                <a href="{{ route('register') }}" class="btn btn-outline-primary">
-                    Register
-                </a>
-            @endauth
+                    <a href="{{ route('register') }}" class="btn btn-outline-primary">
+                        Register
+                    </a>
+                @endauth
+            </div>
+
         </div>
-
-    </div>
-</nav>
+    </nav>
 
     <section class="section" id="fitur">
         <div class="container">
@@ -563,13 +562,7 @@
     </section>
 
     @guest
-        <div
-            class="modal fade"
-            id="loginModal"
-            tabindex="-1"
-            aria-labelledby="loginModalLabel"
-            aria-hidden="true"
-        >
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
@@ -579,12 +572,7 @@
                                 Login
                             </h5>
 
-                            <button
-                                type="button"
-                                class="login-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Tutup"
-                            >
+                            <button type="button" class="login-close" data-bs-dismiss="modal" aria-label="Tutup">
                                 &times;
                             </button>
                         </div>
@@ -598,6 +586,19 @@
                                 </div>
                             @endif
 
+                            @if (session('success'))
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        const modalElement = document.getElementById('loginModal');
+
+                                        if (modalElement) {
+                                            const loginModal = new bootstrap.Modal(modalElement);
+                                            loginModal.show();
+                                        }
+                                    });
+                                </script>
+                            @endif
+
                             @if ($errors->has('username') || $errors->has('password'))
                                 <div class="alert alert-danger">
                                     Username atau password salah.
@@ -607,29 +608,15 @@
                             <div class="login-fields">
                                 <div>
                                     <label for="login_username">Username</label>
-                                    <input
-                                        type="text"
-                                        name="username"
-                                        id="login_username"
-                                        class="form-control"
-                                        placeholder="Masukkan username"
-                                        value="{{ old('username') }}"
-                                        autocomplete="username"
-                                        required
-                                    >
+                                    <input type="text" name="username" id="login_username" class="form-control"
+                                        placeholder="Masukkan username" value="{{ old('username') }}"
+                                        autocomplete="username" required>
                                 </div>
 
                                 <div>
                                     <label for="login_password">Password</label>
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        id="login_password"
-                                        class="form-control"
-                                        placeholder="Masukkan password"
-                                        autocomplete="current-password"
-                                        required
-                                    >
+                                    <input type="password" name="password" id="login_password" class="form-control"
+                                        placeholder="Masukkan password" autocomplete="current-password" required>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary login-enter">
@@ -652,7 +639,7 @@
 
     @if ($errors->has('username') || $errors->has('password'))
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('DOMContentLoaded', function() {
                 const loginModalElement = document.getElementById('loginModal');
 
                 if (loginModalElement) {
@@ -664,4 +651,5 @@
     @endif
 
 </body>
+
 </html>
