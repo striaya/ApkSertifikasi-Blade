@@ -22,6 +22,11 @@ class Peserta extends Model
         'tanggal_lahir' => 'date',
     ];
 
+    public function user()
+    {
+        return $this->belongTo(User::class);
+    }
+    
     public function skema() {
         return $this->belongsTo(Skema::class, 'skema_id');
     }
